@@ -10,7 +10,7 @@ import {
   CLEAR_CURRENT,
 } from './types';
 
-// Get all logs 
+// Get all logs
 export const getLogs = () => async dispatch => {
   try {
     setLoading();
@@ -59,11 +59,34 @@ export const addLog = log => async dispatch => {
 
 // Delete log from server
 export const deleteLog = id => async dispatch => {
-  // TEST 4: "Complete the deleteLog action"
-  // 1. Complete the deleteLog action to delete a log from the database.
-  // 2. Dispatch a DELETE_LOG type.
-  // 3. Show a toast message that a log has been deleted. 
-  console.log('DELETE_LOG');
+  try {
+    setLoading();
+
+    // TEST 4: "Complete the deleteLog action"
+    // 1. Complete the deleteLog action to delete a log from the database.
+    // 2. Dispatch a DELETE_LOG type.
+    // 3. Show a toast message that a log has been deleted.
+
+    const res = await fetch(`/logs/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    await res.json();
+
+    dispatch({
+      type: DELETE_LOG,
+      payload: id,
+    });
+
+  } catch (err) {
+    dispatch({
+      type: LOGS_ERROR,
+      payload: err.response.statusText,
+    });
+  }
 };
 
 // Update a log

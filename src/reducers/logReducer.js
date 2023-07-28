@@ -31,15 +31,16 @@ const LogReducer = (state = initialState, action) => {
         loading: false,
       };
     case DELETE_LOG:
-      // TEST 5: "Complete the DELETE_LOG reducer"
-      // 1. Complete the DELETE_LOG reducer used by the `deleteLog` action.
-      // 2. Delete the log and update the state.
-      return 
+      return {
+        ...state,
+        logs: state.logs.filter(log => log.id !== action.payload),
+        loading: false,
+      }
     case UPDATE_LOG:
       return {
         ...state,
         logs: state.logs.map(log =>
-          log.id === action.payload.id ? action.payload : log
+            log.id === action.payload.id ? action.payload : log
         ),
       };
     case SEARCH_LOGS:

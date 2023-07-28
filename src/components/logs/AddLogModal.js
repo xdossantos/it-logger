@@ -8,7 +8,12 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 const AddLogModal = ({ addLog }) => {
   const [message, setMessage] = useState('');
   const [attention, setAttention] = useState(false);
-  const tech = '';
+  const [tech, setSelectedTech] = useState('');
+  const clearUserInputs = () => {
+    setMessage('');
+    setAttention(false);
+    setSelectedTech('');
+  }
 
   const onSubmit = () => {
     if (message === '' || tech === '') {
@@ -21,79 +26,71 @@ const AddLogModal = ({ addLog }) => {
         date: new Date(),
       };
 
-      // TEST 3: "Add Log Modal Select a Technician"
-      // 4. use the `addLog` action provided. 
+      addLog(newLog);
 
       M.toast({ html: `Log added by ${tech}` });
 
-      // Clear fields
-      // 5. Clear all input fields after save.
+      clearUserInputs();
     }
   };
 
+
   return (
-    <div id='add-log-modal' className='modal' style={modalStyle}>
-      <div className='modal-content'>
-        <h4>Enter System Log</h4>
-        <div className='row'>
-          <div className='input-field'>
-            <input
-              type='text'
-              name='message'
-              value={message}
-              onChange={e => setMessage(e.target.value)}
-            />
-            <label htmlFor='message' className='active'>
-              Log Message
-            </label>
-          </div>
-        </div>
-
-        <div className='row'>
-          <div className='input-field'>
-
-            <p>!! Add technician select dropdown here. Reference the screenshots in the README. Remove this text. !!</p>
-            
-              {/* 
-              TEST 3: "Add Log Modal Select a Technician"
-              1. Add a select dropdown to select a technician `tech`.
-                1.1 Use the `TechSelectOptions` component for your select options.
-              2. onChange store the `tech` in state.
-              3. onSubmit the log with the selected `tech` must be saved to the db.json "database".
-                3.1 Use the `addLog` action provided to save the log.
-              */}
-                
-          </div>
-        </div>
-        
-
-        <div className='row'>
-          <div className='input-field'>
-            <p>
-              <label>
-                <input
-                  type='checkbox'
-                  className='filled-in'
-                  checked={attention}
-                  value={attention}
-                  onChange={e => setAttention(!attention)}
-                />
-                <span>Needs Attention</span>
+      <div id='add-log-modal' data-testid="add-log-modal" className='modal' style={modalStyle}>
+        <div className='modal-content'>
+          <h4>Enter System Log</h4>
+          <div className='row'>
+            <div className='input-field'>
+              <input
+                  type='text'
+                  aria-label='Log Message'
+                  data-testid='add-log-message'
+                  name='message'
+                  value={message}
+                  onChange={e => setMessage(e.target.value)}
+              />
+              <label htmlFor='message' className='active'>
+                Log Message
               </label>
-            </p>
+            </div>
+          </div>
+
+          <div className='row'>
+            <div className='input-field'>
+              <TechSelectOptions onChange={(e) => setSelectedTech(e.target.value)} selected={tech} />
+            </div>
+          </div>
+
+
+          <div className='row'>
+            <div className='input-field'>
+              <p>
+                <label>
+                  <input
+                      data-testid='add-log-check'
+                      type='checkbox'
+                      className='filled-in'
+                      checked={attention}
+                      value={attention}
+                      onChange={e => setAttention(!attention)}
+                  />
+                  <span>Needs Attention</span>
+                </label>
+              </p>
+            </div>
           </div>
         </div>
+        <div className='modal-footer'>
+          <a
+              href='#!'
+              data-testid='add-log-button'
+              onClick={onSubmit}
+              className='modal-close waves-effect blue waves-light btn'
+          >
+            Enter
+          </a>
+        </div>
       </div>
-      <div className='modal-footer'>
-        <a
-          href='#!'
-          onClick={onSubmit}
-          className='modal-close waves-effect blue waves-light btn'
-        >
-          Enter
-        </a>
-      </div>
-    </div>
   );
 };
 

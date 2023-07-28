@@ -9,16 +9,21 @@ const EditLogModal = ({ current, updateLog }) => {
   // Component level state
   const [message, setMessage] = useState('');
   const [attention, setAttention] = useState(false);
-  const tech = '';
+  const [tech, setSelectedTech] = useState('');
 
   useEffect(() => {
     if (current) {
       setMessage(current.message);
       setAttention(current.attention);
+      setSelectedTech(current.tech);
     }
     //eslint-disable-next-line
   }, [current]);
-
+  const clearUserInputs = () => {
+    setMessage('');
+    setAttention(false);
+    setSelectedTech('');
+  }
   const onSubmit = () => {
     if (message === '' || tech === '') {
       M.toast({ html: 'Please enter a message and tech' });
@@ -31,37 +36,41 @@ const EditLogModal = ({ current, updateLog }) => {
         date: new Date(),
       };
 
+      updateLog(updatedLog);
+
       // TEST 4: "Edit Log Modal Select a Technician"
-      // 4. Use `updateLog` action provided. 
+      // 4. Use `updateLog` action provided.
 
       M.toast({ html: `Log updated by ${tech}` });
 
       // Clear fields
+      clearUserInputs();
       // 5. Clear all input fields after save
     }
   };
 
   return (
-    <div id='edit-log-modal' className='modal' style={modalStyle}>
-      <div className='modal-content'>
-        <h4>Edit System Log</h4>
-        <div className='row'>
-          <div className='input-field'>
-            <input
-              type='text'
-              name='message'
-              value={message}
-              onChange={e => setMessage(e.target.value)}
-            />
+      <div id='edit-log-modal' data-testid='edit-log-modal' className='modal' style={modalStyle}>
+        <div className='modal-content'>
+          <h4>Edit System Log</h4>
+          <div className='row'>
+            <div className='input-field'>
+              <input
+                  aria-label='Log Message'
+                  type='text'
+                  name='message'
+                  value={message}
+                  onChange={e => setMessage(e.target.value)}
+              />
+            </div>
           </div>
-        </div>
 
-        <div className='row'>
-          <div className='input-field'>
+          <div className='row'>
+            <div className='input-field'>
 
-            <p>!! Add technician select dropdown here. Reference the screenshots in the README. Remove this text. !!</p>
-             
-             {/* 
+              <TechSelectOptions onChange={(e) => setSelectedTech(e.target.value)} selected={tech} />
+
+              {/*
               TEST 4: "Edit Log Modal Select a Technician"
               1. Add a select dropdown to select a technician `tech`.
                 1.1 Use the `TechSelectOptions` component for your select options.
@@ -70,36 +79,36 @@ const EditLogModal = ({ current, updateLog }) => {
                 3.1 Use the `updateLog` action provided to save the log.
               */}
 
+            </div>
           </div>
-        </div>
 
-        <div className='row'>
-          <div className='input-field'>
-            <p>
-              <label>
-                <input
-                  type='checkbox'
-                  className='filled-in'
-                  checked={attention}
-                  value={attention}
-                  onChange={e => setAttention(!attention)}
-                />
-                <span>Needs Attention</span>
-              </label>
-            </p>
+          <div className='row'>
+            <div className='input-field'>
+              <p>
+                <label>
+                  <input
+                      type='checkbox'
+                      className='filled-in'
+                      checked={attention}
+                      value={attention}
+                      onChange={e => setAttention(!attention)}
+                  />
+                  <span>Needs Attention</span>
+                </label>
+              </p>
+            </div>
           </div>
         </div>
+        <div className='modal-footer'>
+          <a
+              href='#!'
+              onClick={onSubmit}
+              className='modal-close waves-effect blue waves-light btn'
+          >
+            Enter
+          </a>
+        </div>
       </div>
-      <div className='modal-footer'>
-        <a
-          href='#!'
-          onClick={onSubmit}
-          className='modal-close waves-effect blue waves-light btn'
-        >
-          Enter
-        </a>
-      </div>
-    </div>
   );
 };
 
@@ -118,3 +127,4 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, { updateLog })(EditLogModal);
+

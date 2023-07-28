@@ -4,52 +4,61 @@ import PropTypes from 'prop-types';
 import { addTech } from '../../actions/techActions';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-
 const AddTechModal = ({ addTech }) => {
-  
-  const firstName = '';
-  const lastName = '';
+
+  const defaultTech = {
+    firstName: "",
+    lastName:"",
+  }
+
+  const [technician, setTechnician] = useState(defaultTech);
 
   const onSubmit = () => {
-    if (firstName === '' || lastName === '') {
+    if (technician.firstName === '' || technician.lastName === '') {
       M.toast({ html: 'Please enter the first and last name' });
     } else {
-      
-      // TEST 1: "Create a new Technician" 
-      // 4. Use the `addTech` redux action provided to save the new technician to the db.json "database".
 
-      M.toast({ html: `${firstName} ${lastName} was added as a tech` });
+      addTech(technician);
 
-      // TEST: "Create a new Technician" 
-      // 5. Clear input fields after save
+      M.toast({ html: `${technician.firstName} ${technician.lastName} was added as a tech` });
+
+      setTechnician(defaultTech);
     }
   };
 
   return (
-    <div id='add-tech-modal' className='modal'>
-      <div className='modal-content'>
-        <h4>New Technician</h4>
-
-        <p>!! Add first name and last name inputs here. Reference the screenshots in the README. Remove this text. !!</p>
-
-        {/* 
-        TEST 1: "Create a new Technician" 
-        1. Add inputs for First Name and Last Name.
-        2. onChange store the `firstName` and `lastName` inputs in state.
-        3. onSubmit the technician must be saved to the database.
-        */}
-        
+      <div id='add-tech-modal' className='modal'>
+        <div className='modal-content'>
+          <h4>New Technician</h4>
+          <p>
+            <input
+                type='text'
+                name='firstName'
+                placeholder='First Name'
+                value={technician.firstName}
+                onChange={(e) => setTechnician({...technician, firstName: e.target.value})}
+            />
+          </p>
+          <p>
+            <input
+                type='text'
+                name='lastName'
+                placeholder='Last Name'
+                value={technician.lastName}
+                onChange={(e) => setTechnician({...technician, lastName: e.target.value})}
+            />
+          </p>
+        </div>
+        <div className='modal-footer'>
+          <a
+              href='#!'
+              onClick={onSubmit}
+              className='modal-close waves-effect blue waves-light btn'
+          >
+            Enter
+          </a>
+        </div>
       </div>
-      <div className='modal-footer'>
-        <a
-          href='#!'
-          onClick={onSubmit}
-          className='modal-close waves-effect blue waves-light btn'
-        >
-          Enter
-        </a>
-      </div>
-    </div>
   );
 };
 

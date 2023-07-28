@@ -20,7 +20,7 @@ export const getTechs = () => async dispatch => {
   } catch (err) {
     dispatch({
       type: TECHS_ERROR,
-      payload: err.response.statusText,
+      payload: err?.response?.statusText || 'Error: Fetching techs failed',
     });
   }
 };
@@ -37,7 +37,7 @@ export const addTech = tech => async dispatch => {
         'Content-Type': 'application/json',
       },
     });
-    
+
     const data = await res.json();
 
     dispatch({
@@ -47,7 +47,7 @@ export const addTech = tech => async dispatch => {
   } catch (err) {
     dispatch({
       type: TECHS_ERROR,
-      payload: err.response.statusText,
+      payload: err?.response?.statusText || 'Error: Adding tech failed',
     });
   }
 };
@@ -58,3 +58,4 @@ export const setLoading = () => {
     type: SET_LOADING,
   };
 };
+
