@@ -1,91 +1,46 @@
-# React IT Logger Test
+# Getting Started with Create React App
 
-This is a simple React IT Logger application that uses redux for state management. The application uses a local `db.json` file to simulate a database.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
 
-## Setup your GitLab profile
+## Available Scripts
 
-If you don't already have a GitLab profile setup you'll have to create one and apply your computers SSH key to the profile. This will allow you to pull and push to this repository.
+In the project directory, you can run:
 
-Follow the steps to [setup your GitLab and SSH key here](https://subscription.packtpub.com/book/application_development/9781783986842/2/ch02lvl1sec20/adding-your-ssh-key-to-gitlab)
+### `yarn start`
 
-## Setup
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-1. `git clone git@gitlab.com:peterlehto/it-logger.git`
-2. `cd it-logger`
-3. `npm install`
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-### How to run the application
+### `yarn test`
 
-1. `npm run dev` will start the application and json server concurrently.
-2. The application will be served on `http://localhost:3000`.
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### What is already setup and provided in this test
+### `yarn build`
 
-- The application displays "IT logs" from the database.
-- You can create new "IT logs" by clicking blue button in the bottom right corner (screenshot below).
-- You can edit existing "IT logs" by clicking the title of the log.
-- You can create new "Technicians" by hovering over the blue button and then clicking the red button (screenshot below).
-- You can delete a log by clicking the Trashcan icon.
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## The Test
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-Fork this repository, complete the tests and create a pull request.
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-Complete the following tests:
+### `yarn eject`
 
-1. **Create a new Technician** - `./src/components/techs/AddTechModal.js`
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-   1. Add inputs for First Name and Last Name.
-   2. `onChange` store the `firstName` and `lastName` inputs in state.
-   3. `onSubmit` the technician must be saved to the database.
-   4. Use the `addTech` redux action provided to save the new technician to the `db.json` "database".
-   5. Clear input fields after save.
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-2. **Add Log Modal Select a Technician** - `./src/components/logs/AddLogModal.js`
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-   1. Add a select dropdown to select a technician `tech`.
-      1. Use the `./src/components/techs/TechSelectOptions.js` component for your select options.
-      2. Complete the `TechSelectOptions` component to list all the technicians in a dropdown list.
-   2. `onChange` store the `tech` in state.
-   3. `onSubmit` the log with the selected `tech` must be saved to the `db.json` "database".
-   4. Use the `addLog` action provided.
-   5. Clear all input fields after save.
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-3. **Edit Log Modal Select a Technician** - `./src/components/logs/EditLogModal.js`
+## Learn More
 
-   1. Add a select dropdown to select a technician `tech`.
-      1. Use the `./src/components/techs/TechSelectOptions.js` component for your select options.
-   2. `onChange` store the `tech` in state.
-   3. `onSubmit` the log with the selected `tech` must be saved to the `db.json` "database".
-   4. Use the `updateLog` action provided.
-   5. Clear all input fields after save.
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-4. **Complete the deleteLog action** - `./src/actions/logActions.js`
-
-   1. Complete the `deleteLog` action to delete a log from the database.
-   2. Dispatch a `DELETE_LOG` reducer.
-   3. Show a toast message that a log has been deleted.
-
-5. **Complete the DELETE_LOG reducer** - `./src/reducers/logReducer.js`
-
-   1. Complete the `DELETE_LOG` reducer used by the `deleteLog` action.
-   2. Delete the log from the database and update the state.
-   3. Show a toast message that a log has been deleted.
-
-6. **Create a Pull Request**
-   1. Create a pull request from your branch to `master`.
-   2. Add a description and screenshots.
-
-### Screenshots of completed application
-
-1. Dashboard with action buttons
-   ![1._dashboard](https://i.imgur.com/AYfKVzE.png)
-
-2. Add a technician
-   ![2._technician](https://i.imgur.com/qP4Uxcj.png)
-
-3. Add an IT Log
-   ![3._add](https://i.imgur.com/CnDKJyK.png)
-
-4. Edit an IT Log
-   ![4._edit](https://i.imgur.com/93YAJh4.png)
+To learn React, check out the [React documentation](https://reactjs.org/).
