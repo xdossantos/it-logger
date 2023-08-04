@@ -17,7 +17,7 @@ const TechSelectOptions = ({tech: {techs, loading}, getTechs, onChange, selected
   const techniciansIsFetched = (!loading && techs.length > 0);
 
   return(
-      <select aria-label='Select technician' name='technician' className='browser-default' onChange={onChange} value={selected} >
+      <select aria-label='Select technician' name='technician'  className='browser-default' onChange={onChange} value={selected} >
         <option aria-label='' value={""} disabled>Select Technician</option>
         { techniciansIsFetched && techs.map(tech =>
             <option

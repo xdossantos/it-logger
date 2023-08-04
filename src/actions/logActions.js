@@ -62,11 +62,6 @@ export const deleteLog = id => async dispatch => {
   try {
     setLoading();
 
-    // TEST 4: "Complete the deleteLog action"
-    // 1. Complete the deleteLog action to delete a log from the database.
-    // 2. Dispatch a DELETE_LOG type.
-    // 3. Show a toast message that a log has been deleted.
-
     const res = await fetch(`/logs/${id}`, {
       method: 'DELETE',
       headers: {
